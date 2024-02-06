@@ -12,6 +12,7 @@ const PORT = process.env.PORT
 app.use(express.json())
 
 app.use("/creating-user",signupRoute)
+
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     console.log("Mongoose is Connected")

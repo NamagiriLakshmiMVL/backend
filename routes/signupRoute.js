@@ -14,4 +14,14 @@ router.post("/password", async (req, res) => {
 
 })
 
+router.post("/login",async(req,res)=>{
+    try{
+            const newLogin = await userModel.findOne({email:req.body.email})
+            res.send(newLogin)
+    }
+    catch(err){
+        res.send(err)
+    }
+})
+
 module.exports = router
