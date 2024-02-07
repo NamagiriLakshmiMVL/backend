@@ -16,8 +16,16 @@ router.post("/password", async (req, res) => {
 
 router.post("/login",async(req,res)=>{
     try{
-            const newLogin = await userModel.find({email:req.body.email})
-            res.send(newLogin)
+            const newLogin = await userModel.findOne({email:req.body.email,password:req.body.password})
+            
+            if(newLogin){
+                res.send(newLogin)
+            }
+            else
+            {
+                res.send({message:"Login Failed"})
+            }
+            
     }
     catch(err){
         res.send(err)
