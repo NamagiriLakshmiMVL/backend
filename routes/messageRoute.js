@@ -1,11 +1,12 @@
 const express = require("express")
-const userModel = require("../models/userModel")
+const messageModel = require("../models/messageModel")
 
 const router = express.Router()
 
 router.post("/sent",async(req,res)=>{
     try{
-        const newMessage = await userModel.findOneAndUpdate({email:req.body.to},{$push:{message:req.body.message}})
+        const newMessage = new newMessage(req.body)
+        await newMessage
         res.send(newMessage)
     }
     catch(err){
@@ -13,5 +14,6 @@ router.post("/sent",async(req,res)=>{
     }
    
 })
+
 
 module.exports = router
