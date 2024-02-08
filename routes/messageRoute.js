@@ -39,8 +39,8 @@ router.post("/getting-sent", async (req, res) => {
 
 router.post("/deleting-msg", async (req, res) => {
     try {
-        await messageModel.findOneAndDelete({ _id: req.body.id })
-        res.send("Deleted SuccessFully")
+       const newDelete= await messageModel.findOneAndDelete({ _id: req.body.id })
+       newDelete? res.send("Deleted SuccessFully"):res.send("Not Exists")
     }
     catch (err) {
         res.send(err)
