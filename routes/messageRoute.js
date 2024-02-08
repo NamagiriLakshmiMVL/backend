@@ -29,7 +29,7 @@ router.post("/getting-msg",async(req,res)=>{
 })
 
 
-router.post("getting-sent",async(req,res)=>{
+router.post("/getting-sent",async(req,res)=>{
     try{
         const send = await messageModel.find({from:req.body.data})
         res.send(send)
