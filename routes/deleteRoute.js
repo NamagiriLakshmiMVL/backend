@@ -26,4 +26,15 @@ router.get("/getting-delete", async (req, res) => {
 
 })
 
+
+router.post("/delete-delete", async (req, res) => {
+    try {
+       const newDelete= await deleteModel.findOneAndDelete({ _id: req.body.id })
+       newDelete? res.send("Deleted SuccessFully"):res.send("Not Exists")
+    }
+    catch (err) {
+        res.send(err)
+    }
+})
+
 module.exports = router
