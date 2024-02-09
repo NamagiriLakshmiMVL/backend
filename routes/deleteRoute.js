@@ -7,7 +7,7 @@ router.post("/delete", async (req, res) => {
     try {
         const deletedMessage = new deleteModel(req.body)
         await deletedMessage.save()
-        res.send(newMessage)
+        res.send(deletedMessage)
     }
     catch (err) {
         res.send(err)
