@@ -15,4 +15,15 @@ router.post("/delete", async (req, res) => {
 
 })
 
+router.get("/getting-delete", async (req, res) => {
+    try {
+        const Message = await deleteModel.find()
+        res.send(Message)
+    }
+    catch (err) {
+        res.send(err)
+    }
+
+})
+
 module.exports = router
