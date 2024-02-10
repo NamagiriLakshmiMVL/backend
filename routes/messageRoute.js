@@ -57,5 +57,14 @@ router.post("/getting-star", async (req, res) => {
         res.send(err)
     }
 })
+router.post("/deleting-star", async (req, res) => {
+    try {
+        const send = await messageModel.find({ _id: req.body.id })
+        res.send(send)
+    }
+    catch (err) {
+        res.send(err)
+    }
+})
 
 module.exports = router
