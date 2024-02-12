@@ -13,7 +13,7 @@ router.post("/password", async (req, res) => {
             return;
         }
         if (!/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@!#$%_&]).{8,}$/g.test(password)) {
-            res.status(400).send({ message: "Password pattern does not match" })
+            res.send("Password pattern does not match")
             return;
         }
         const hashedPassword = await genPassword(password)
