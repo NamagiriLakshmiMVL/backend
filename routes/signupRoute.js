@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
             const storedDbPassword = newLogin.password;
             const isPasswordMatch = await bcrypt.compare(password, storedDbPassword)
             if (!isPasswordMatch) {
-                res.status(400).send({ message: "Invalid Credentials" })
+                res.send("Invalid Credentials")
                 return;
             }
 
@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
 
         }
         else {
-            res.send({ message: "Invalid Credentials" })
+            res.send("Invalid Credentials")
             return
         }
     }
