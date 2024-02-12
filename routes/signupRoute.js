@@ -21,7 +21,7 @@ router.post("/password", async (req, res) => {
         await newUser.save()
 
 
-        res.send(newUser)
+        res.send("Created User Successfully")
     }
     catch (err) {
         res.send(err)
