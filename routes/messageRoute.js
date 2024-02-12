@@ -7,7 +7,7 @@ router.post("/sent", async (req, res) => {
     try {
         const newMessage = new messageModel(req.body)
         await newMessage.save()
-        res.send(newMessage)
+        res.send("Message Sent Successfully")
     }
     catch (err) {
         res.send(err)
