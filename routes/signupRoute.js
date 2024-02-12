@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
                 return;
             }
 
-            res.send({message:"Login Successfull"})
+            res.send("Login Successfull")
 
         }
         else {
