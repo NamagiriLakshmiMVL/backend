@@ -1,7 +1,7 @@
 const express = require("express")
 const userModel = require("../models/userModel")
 const genPassword = require("../helper.js")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const router = express.Router()
 
 router.post("/password", async (req, res) => {
@@ -31,7 +31,7 @@ router.post("/password", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const { email, password } = req.body
+        const { password } = req.body
         const newLogin = await userModel.findOne({ email: req.body.email })
         if (newLogin) {
             const storedDbPassword = newLogin.password;
