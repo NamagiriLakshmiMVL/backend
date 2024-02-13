@@ -26,6 +26,16 @@ router.post("/getting-msg", async (req, res) => {
     }
 })
 
+router.post("/search-msg", async (req, res) => {
+    try {
+        const getMessage = await messageModel.find({message:req.body.items} || {subject:req.body.items} || {from:req.body.items} || {to:req.body.items})
+        res.send(getMessage)
+    }
+    catch (err) {
+        res.send(err)
+    }
+})
+
 
 router.post("/getting-sent", async (req, res) => {
     try {
