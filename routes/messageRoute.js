@@ -28,8 +28,16 @@ router.post("/getting-msg", async (req, res) => {
 
 router.post("/search-msg", async (req, res) => {
     try {
-        const getMessage = await messageModel.find({message:req.body.items} || {subject:req.body.items} || {from:req.body.items} || {to:req.body.items})
-        res.send(getMessage)
+        // const getMessage = await messageModel.find({message:req.body.items} || {subject:req.body.items} )
+         console.log("getMessage");
+        const agg = [
+            {$search: {wildcard: {query: "req.body.items", path: "message"}}}
+        ];
+        console.log(agg)
+        // run pipeline
+        const result = await messageModel.aggregate(agg);
+        console.log(result)
+        res.send(result)
     }
     catch (err) {
         res.send(err)
