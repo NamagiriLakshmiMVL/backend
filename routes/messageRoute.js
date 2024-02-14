@@ -28,15 +28,15 @@ router.post("/getting-msg", async (req, res) => {
 
 router.post("/search-msg", async (req, res) => {
     try {
-        // const getMessage = await messageModel.find({message:req.body.items} || {subject:req.body.items} )
-         console.log("getMessage");
-        const agg = [
-            {$search: {wildcard: {query: "req.body.items", path: "message"}}}
-        ];
-        console.log(agg)
-        // run pipeline
-        const result = await messageModel.aggregate(agg);
-        console.log(result)
+        // const getMessage = await messageModel.find({message:req.body.items} || {subject:req.body.items})
+        console.log("getMessage");
+        const result = await messageModel.aggregate().search({
+                text: {
+                    query: "Sample",
+                    path: 'message'
+                }
+            });
+            console.log(result);
         res.send(result)
     }
     catch (err) {
@@ -57,8 +57,18 @@ router.post("/getting-sent", async (req, res) => {
 
 router.post("/deleting-msg", async (req, res) => {
     try {
-       const newDelete= await messageModel.findOneAndDelete({ _id: req.body.id })
-       newDelete? res.send("Deleted SuccessFully"):res.send("Not Exists")
+        const newDelete = await messageModel.findOneAndDelete({ _id: req.body.id })
+        newDelete ? res.send("Deleted SuccessFully") : res.send("Not Exists")
+    }
+    catch (err) {
+        res.send(err)
+    }
+})
+
+router.delete("/multiple-delete", async (req, res) => {
+    try {
+        const newDelete = await messageModel.deleteMany({ _id: req.body.id })
+        newDelete ? res.send("Deleted SuccessFully") : res.send("Not Exists")
     }
     catch (err) {
         res.send(err)
@@ -84,5 +94,8 @@ router.post("/deleting-star", async (req, res) => {
         res.send(err)
     }
 })
+
+
+
 
 module.exports = router
