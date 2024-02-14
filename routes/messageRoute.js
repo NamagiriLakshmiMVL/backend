@@ -31,12 +31,12 @@ router.post("/search-msg", async (req, res) => {
         // const getMessage = await messageModel.find({message:req.body.items} || {subject:req.body.items})
         console.log("getMessage");
         const result = await messageModel.aggregate().search({
-                text: {
-                    query: "Sample",
-                    path: 'message'
-                }
-            });
-            console.log(result);
+            text: {
+                query: "Sample",
+                path: 'message'
+            }
+        });
+        console.log(result);
         res.send(result)
     }
     catch (err) {
@@ -67,7 +67,7 @@ router.post("/deleting-msg", async (req, res) => {
 
 router.post("/multiple-delete", async (req, res) => {
     try {
-        const newDelete = await messageModel.deleteMany(req.body )
+        const newDelete = await messageModel.deleteMany(req.body)
         newDelete ? res.send(newDelete) : res.send("Not Exists")
         console.log(newDelete)
     }
