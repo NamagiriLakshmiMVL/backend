@@ -68,8 +68,7 @@ router.post("/deleting-msg", async (req, res) => {
 router.post("/multiple-delete", async (req, res) => {
     try {
         const newDelete = await messageModel.deleteMany(req.body)
-        newDelete ? res.send(newDelete) : res.send("Not Exists")
-        console.log(newDelete)
+        newDelete ? res.send("Deleted SuccessFully") : res.send("Not Exists")
     }
     catch (err) {
         res.send(err)
