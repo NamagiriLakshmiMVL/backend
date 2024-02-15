@@ -37,4 +37,14 @@ router.post("/delete-delete", async (req, res) => {
     }
 })
 
+router.post("/multiple-delete", async (req, res) => {
+    try {
+        const newDelete = await deleteModel.deleteMany(req.body)
+        newDelete ? res.send("Deleted SuccessFully") : res.send("Not Exists")
+    }
+    catch (err) {
+        res.send(err)
+    }
+})
+
 module.exports = router
