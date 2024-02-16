@@ -18,7 +18,8 @@ router.post("/sent", async (req, res) => {
 
 router.post("/getting-msg", async (req, res) => {
     try {
-        const getMessage = await messageModel.find({ to: req.body.items })
+        var getMessage = (req.body.items === true && await messageModel.find({ to: req.body.items }))
+        var getMessage = (req.body.subject === true && await messageModel.find({ subject: { $regex: req.body.subject } }))
         res.send(getMessage)
     }
     catch (err) {
@@ -28,16 +29,13 @@ router.post("/getting-msg", async (req, res) => {
 
 router.post("/search-msg", async (req, res) => {
     try {
-        // const getMessage = await messageModel.find({message:req.body.items} || {subject:req.body.items})
-        console.log("getMessage");
-        const result = await messageModel.aggregate().search({
-            text: {
-                query: "Sample",
-                path: 'message'
-            }
-        });
-        console.log(result);
-        res.send(result)
+        console.log("hello")
+        const docs = await messageModel.find({ subject: { $regex: req.body.subject } });
+
+        if (docs)
+            res.send(docs)
+        else
+            res.send({ message: "NOt found" })
     }
     catch (err) {
         res.send(err)
