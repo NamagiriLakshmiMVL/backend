@@ -18,12 +18,12 @@ router.post("/sent", async (req, res) => {
 
 router.post("/getting-msg", async (req, res) => {
     try {
-        const getMessage =  await messageModel.find({ to: req.body.items })
-        res.send(getMessage)
+        const getMessage = await messageModel.find({$and: [{ to: req.body.items } ,  {subject: { $regex: req.body.data } }] })
+res.send(getMessage)
     }
     catch (err) {
-        res.send(err)
-    }
+    res.send(err)
+}
 })
 
 router.post("/search-msg", async (req, res) => {
