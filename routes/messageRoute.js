@@ -18,8 +18,7 @@ router.post("/sent", async (req, res) => {
 
 router.post("/getting-msg", async (req, res) => {
     try {
-        var getMessage = (req.body.items === true && await messageModel.find({ to: req.body.items }))
-        var getMessage = (req.body.subject === true && await messageModel.find({ subject: { $regex: req.body.subject } }))
+        const getMessage =  await messageModel.find({ to: req.body.items })
         res.send(getMessage)
     }
     catch (err) {
