@@ -18,33 +18,17 @@ router.post("/sent", async (req, res) => {
 
 router.post("/getting-msg", async (req, res) => {
     try {
-        const getMessage = await messageModel.find({$and: [{ to: req.body.items } ,  {subject: { $regex: req.body.data } }] })
-res.send(getMessage)
-    }
-    catch (err) {
-    res.send(err)
-}
-})
-
-router.post("/search-msg", async (req, res) => {
-    try {
-        console.log("hello")
-        const docs = await messageModel.find({ subject: { $regex: req.body.subject } });
-
-        if (docs)
-            res.send(docs)
-        else
-            res.send({ message: "NOt found" })
+        const getMessage = await messageModel.find({ $and: [{ to: req.body.items }, { subject: { $regex: req.body.data } }] })
+        res.send(getMessage)
     }
     catch (err) {
         res.send(err)
     }
 })
 
-
 router.post("/getting-sent", async (req, res) => {
     try {
-        const send = await messageModel.find({ from: req.body.data })
+        const send = await messageModel.find({ $and: [{ from: req.body.items }, { subject: { $regex: req.body.data } }] })
         res.send(send)
     }
     catch (err) {
