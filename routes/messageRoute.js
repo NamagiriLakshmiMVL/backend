@@ -1,9 +1,9 @@
 const express = require("express")
 const messageModel = require("../models/messageModel")
-
+const auth = require("../middleware/auth")
 const router = express.Router()
 
-router.post("/sent", async (req, res) => {
+router.post("/sent",auth, async (req, res) => {
     try {
         const newMessage = new messageModel(req.body)
         await newMessage.save()
@@ -16,7 +16,7 @@ router.post("/sent", async (req, res) => {
 })
 
 
-router.post("/getting-msg", async (req, res) => {
+router.post("/getting-msg",auth, async (req, res) => {
     try {
         const getMessage = await messageModel.find({ $and: [{ to: req.body.items }, { subject: { $regex: req.body.data } }] })
         res.send(getMessage)
@@ -26,7 +26,7 @@ router.post("/getting-msg", async (req, res) => {
     }
 })
 
-router.post("/getting-sent", async (req, res) => {
+router.post("/getting-sent",auth, async (req, res) => {
     try {
         const send = await messageModel.find({ $and: [{ from: req.body.items }, { subject: { $regex: req.body.data } }] })
         res.send(send)
@@ -36,7 +36,7 @@ router.post("/getting-sent", async (req, res) => {
     }
 })
 
-router.post("/deleting-msg", async (req, res) => {
+router.post("/deleting-msg",auth, async (req, res) => {
     try {
         const newDelete = await messageModel.findOneAndDelete({ _id: req.body.id })
         newDelete ? res.send("Deleted SuccessFully") : res.send("Not Exists")
@@ -46,7 +46,7 @@ router.post("/deleting-msg", async (req, res) => {
     }
 })
 
-router.post("/multiple-delete", async (req, res) => {
+router.post("/multiple-delete",auth, async (req, res) => {
     try {
         const newDelete = await messageModel.deleteMany(req.body)
         newDelete ? res.send("Deleted SuccessFully") : res.send("Not Exists")
@@ -57,7 +57,7 @@ router.post("/multiple-delete", async (req, res) => {
 })
 
 
-router.post("/getting-star", async (req, res) => {
+router.post("/getting-star",auth, async (req, res) => {
     try {
         const send = await messageModel.find({ _id: req.body.id })
         res.send(send)
@@ -66,7 +66,7 @@ router.post("/getting-star", async (req, res) => {
         res.send(err)
     }
 })
-router.post("/deleting-star", async (req, res) => {
+router.post("/deleting-star",auth, async (req, res) => {
     try {
         const send = await messageModel.find({ _id: req.body.id })
         res.send(send)

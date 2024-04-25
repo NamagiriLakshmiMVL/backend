@@ -1,9 +1,10 @@
 const express = require("express")
 const deleteModel = require("../models/deleteModel")
+const auth = require("../middleware/auth")
 
 const router = express.Router()
 
-router.post("/delete", async (req, res) => {
+router.post("/delete",auth, async (req, res) => {
     try {
         const deletedMessage = new deleteModel(req.body)
         await deletedMessage.save()
@@ -15,7 +16,7 @@ router.post("/delete", async (req, res) => {
 
 })
 
-router.get("/getting-delete", async (req, res) => {
+router.get("/getting-delete",auth, async (req, res) => {
     try {
         const Message = await deleteModel.find()
         res.send(Message)
@@ -27,7 +28,7 @@ router.get("/getting-delete", async (req, res) => {
 })
 
 
-router.post("/delete-delete", async (req, res) => {
+router.post("/delete-delete",auth, async (req, res) => {
     try {
        const newDelete= await deleteModel.findOneAndDelete({ _id: req.body.id })
        newDelete? res.send("Deleted SuccessFully"):res.send("Not Exists")
@@ -37,7 +38,7 @@ router.post("/delete-delete", async (req, res) => {
     }
 })
 
-router.post("/multiple-delete", async (req, res) => {
+router.post("/multiple-delete",auth, async (req, res) => {
     try {
         const newDelete = await deleteModel.deleteMany(req.body)
         newDelete ? res.send("Deleted SuccessFully") : res.send("Not Exists")
